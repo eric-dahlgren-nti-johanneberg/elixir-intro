@@ -122,16 +122,142 @@ defmodule IntroTest do
   end
 
   describe "is_empty/1" do
+    test "empty list -> true" do
+      assert Intro.is_empty([]) == true
+    end
 
+    test "thing in list -> false" do
+      assert Intro.is_empty([:thing]) == false
+    end
   end
 
   describe "first_of/1" do
+    test "first thing is nil" do
+      assert Intro.first_of([nil, :gaming, "gaming!!!!!"]) == nil
+    end
 
+    test "first thing is :end_of_world" do
+      assert Intro.first_of([:end_of_world, 1337.1337]) == :end_of_world
+    end
+
+    test "nil if list is empty" do
+      assert Intro.first_of([]) == nil
+    end
   end
 
   describe "last_of/1" do
+    test "nil if empty" do
+      assert Intro.last_of([]) == nil
+    end
 
+    test "last value" do
+      assert Intro.last_of([1337, :epic]) == :epic
+    end
+
+    test "last value in long list" do
+      assert Intro.last_of([1..1337, :last]) == :last
+    end
   end
 
+  describe "Prepend/2" do
+    test "kan lägga till" do
+      assert Intro.first_of(Intro.prepend([1..5], :first)) == :first
+    end
 
+    test "tom lista" do
+      assert Intro.prepend([], 1) == [1]
+    end
+  end
+
+  describe "Append/2" do
+    test "kan lägga till" do
+      assert Intro.last_of(Intro.append([1..5], :last)) == :last
+    end
+  end
+
+  describe "Length" do
+    test "Längen är positiv" do
+      assert Intro.list_length([1, 2, 3, 4]) == 4
+    end
+
+    test "lista är tom" do
+      assert Intro.list_length([]) == 0
+    end
+  end
+
+  describe "Summa" do
+    test "Summan är korrekt" do
+      assert Intro.summa([1, 2, 3, 4]) == 10
+    end
+
+    test "lista är tom" do
+      assert Intro.summa([]) == 0
+    end
+  end
+
+  describe "Average" do
+    test "snittet är korrekt" do
+      assert Intro.average([1, 2, 3, 4]) == 2.5
+    end
+
+    test "lista är tom" do
+      assert Intro.average([]) == 0
+    end
+  end
+
+  describe "concat" do
+    test "två listor läggs ihop" do
+      assert Intro.concat([1, 2], [3, 4]) == [1, 2, 3, 4]
+    end
+
+    test "lista är tom" do
+      assert Intro.concat([], []) == []
+    end
+  end
+
+  describe "Starts with" do
+    test "första tecken är rätt" do
+      assert Intro.starts_with("korv", "k") == true
+    end
+
+    test "första tecken är fel" do
+      assert Intro.starts_with("korv", "v") == false
+    end
+
+    test "string är tom" do
+      assert Intro.starts_with("", "a") == false
+    end
+  end
+
+  describe "End with" do
+    test "sista tecken är fel" do
+      assert Intro.end_with("korv", "k") == false
+    end
+
+    test "sista tecken är rätt" do
+      assert Intro.end_with("korv", "v") == true
+    end
+
+    test "string är tom" do
+      assert Intro.end_with("", "a") == false
+    end
+  end
+
+  describe "Chomp" do
+    test "inte har /n" do
+      assert Intro.chomp_s("string") == "string"
+    end
+
+    test "/n mitt i string" do
+      assert Intro.chomp_s("str\ning") == "str\ning"
+    end
+
+    test "/n i slutet" do
+      assert Intro.chomp_s("string\n") == "string"
+    end
+
+    test "två /n i slutet" do
+      assert Intro.chomp_s("string\n\n") == "string"
+    end
+  end
 end
