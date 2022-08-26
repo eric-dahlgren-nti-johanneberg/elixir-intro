@@ -243,23 +243,19 @@ defmodule IntroTest do
     end
   end
 
-  # describe "Chomp" do
-  #   test "inte har /n" do
-  #     assert Intro.chomp_s("string") == "string"
-  #   end
+  describe "Chomp" do
+    test "inte har /n" do
+      assert Intro.chomp("string") == "string"
+    end
 
-  #   test "/n mitt i string" do
-  #     assert Intro.chomp_s("str\ning") == "str\ning"
-  #   end
+    test "/n mitt i string" do
+      assert Intro.chomp("str\ning") == "str\ning"
+    end
 
-  #   test "/n i slutet" do
-  #     assert Intro.chomp_s("string\n") == "string"
-  #   end
-
-  #   test "två /n i slutet" do
-  #     assert Intro.chomp_s("string\n\n") == "string"
-  #   end
-  # end
+    test "/n i slutet" do
+      assert Intro.chomp("string\n") == "string"
+    end
+  end
 
   describe "index_of/2" do
     test "nil om tecknet inte finns" do

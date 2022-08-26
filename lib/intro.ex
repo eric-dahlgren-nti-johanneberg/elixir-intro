@@ -56,9 +56,7 @@ defmodule Intro do
 
   def last_of([]), do: nil
 
-  def last_of(list) do
-    [head | tail] = list
-
+  def last_of([head | tail]) do
     if tail != [] do
       last_of(tail)
     else
@@ -123,8 +121,24 @@ defmodule Intro do
 
   # def chomp_s(string) when last_of(String.graphemes(string)) == "\n"
 
-  def chomp_s(string) do
-    string
+  def chomp(string) do
+    list = String.graphemes(string)
+    Enum.join(chomp_list(list))
+  end
+
+  def chomp_list(list) do
+    [head | tail] = list
+    [next | next_tail] = tail
+
+    if next != "\n" do
+      [head | chomp_list(tail)]
+    else
+      if list_length(next_tail) > 0 do
+        [head | chomp_list(tail)]
+      else
+        [head]
+      end
+    end
   end
 
   def index_of("", _char), do: nil
