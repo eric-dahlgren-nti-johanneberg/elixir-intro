@@ -119,13 +119,6 @@ defmodule Intro do
 
   # 19
 
-  # def chomp_s(string) when last_of(String.graphemes(string)) == "\n"
-
-  def chomp(string) do
-    list = String.graphemes(string)
-    Enum.join(chomp_list(list))
-  end
-
   def chomp_list(list) do
     [head | tail] = list
     [next | next_tail] = tail
@@ -138,6 +131,15 @@ defmodule Intro do
       else
         [head]
       end
+    end
+  end
+
+  def chomp(str) do
+    if(end_with(str, "\n")) do
+      list = String.graphemes(str)
+      Enum.join(chomp_list(list))
+    else
+      str
     end
   end
 
