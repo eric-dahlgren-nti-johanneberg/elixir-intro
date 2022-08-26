@@ -243,21 +243,75 @@ defmodule IntroTest do
     end
   end
 
-  describe "Chomp" do
-    test "inte har /n" do
-      assert Intro.chomp_s("string") == "string"
+  # describe "Chomp" do
+  #   test "inte har /n" do
+  #     assert Intro.chomp_s("string") == "string"
+  #   end
+
+  #   test "/n mitt i string" do
+  #     assert Intro.chomp_s("str\ning") == "str\ning"
+  #   end
+
+  #   test "/n i slutet" do
+  #     assert Intro.chomp_s("string\n") == "string"
+  #   end
+
+  #   test "två /n i slutet" do
+  #     assert Intro.chomp_s("string\n\n") == "string"
+  #   end
+  # end
+
+  describe "index_of/2" do
+    test "nil om tecknet inte finns" do
+      assert Intro.index_of("korv", "b") == nil
     end
 
-    test "/n mitt i string" do
-      assert Intro.chomp_s("str\ning") == "str\ning"
+    test "0 om tecknet finns på första" do
+      assert Intro.index_of("korv", "k") == 0
     end
 
-    test "/n i slutet" do
-      assert Intro.chomp_s("string\n") == "string"
+    test "1 om tecknet finns på två platser" do
+      assert Intro.index_of("ahahahahaha", "h") == 1
+    end
+  end
+
+  describe "count_string/2" do
+    test "returnerar 0 om det inte finns" do
+      assert Intro.count_string("1337", "a") == 0
     end
 
-    test "två /n i slutet" do
-      assert Intro.chomp_s("string\n\n") == "string"
+    test "returnerar 2 när den finns 2 gånger" do
+      assert Intro.count_string("1337", "3") == 2
+    end
+  end
+
+  describe "count_number/2" do
+    test "returnerar 0 när nummret inte finns" do
+      assert Intro.count([1, 2, 3, 4], 5) == 0
+    end
+
+    test "returnerar rätt nummer" do
+      assert Intro.count([1, 2, 3, 4, 4], 4) == 2
+    end
+  end
+
+  describe "contains_string/2" do
+    test "true om strängen finns" do
+      assert Intro.contains_string("gaming", "g") == true
+    end
+
+    test "false om strängen inte finns" do
+      assert Intro.contains_string("brobrobrobro", "a") == false
+    end
+  end
+
+  describe "contains/2" do
+    test "true om elementet finns" do
+      assert Intro.contains(["g", 2, 4, 5], "g") == true
+    end
+
+    test "false om elementet inte finns" do
+      assert Intro.contains([1, 2, 33, 4, 5], "a") == false
     end
   end
 end

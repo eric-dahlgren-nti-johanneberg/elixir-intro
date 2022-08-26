@@ -68,44 +68,27 @@ defmodule Intro do
 
   # 11
 
-  def prepend(list, element) do
-    [element | list]
-  end
+  def prepend(list, element), do: [element | list]
 
   # 12
 
   def append([], element), do: [element]
-
-  def append(list, element) do
-    [head | tail] = list
-    [head | append(tail, element)]
-  end
+  def append([head | tail], element), do: [head | append(tail, element)]
 
   # 13
 
   def list_length([]), do: 0
-
-  def list_length(list) do
-    [_head | tail] = list
-    1 + list_length(tail)
-  end
+  def list_length([_head | tail]), do: 1 + list_length(tail)
 
   # 14
 
   def summa([]), do: 0
-
-  def summa(list) do
-    [head | tail] = list
-    head + summa(tail)
-  end
+  def summa([head | tail]), do: head + summa(tail)
 
   # 15
 
   def average([]), do: 0
-
-  def average(list) do
-    summa(list) / list_length(list)
-  end
+  def average(list), do: summa(list) / list_length(list)
 
   # 16
 
@@ -141,17 +124,47 @@ defmodule Intro do
   # def chomp_s(string) when last_of(String.graphemes(string)) == "\n"
 
   def chomp_s(string) do
-    if end_with(string, "\n") do
-      ls = String.graphemes(string)
-      [head | tail] = ls
+    string
+  end
 
-      if tail == [] do
-        Enum.join(ls)
+  def index_of("", _char), do: nil
+  def index_of(_string, ""), do: nil
+
+  def index_of(string, char) do
+    [head | tail] = String.graphemes(string)
+
+    if(head != char) do
+      index = index_of(Enum.join(tail), char)
+
+      if index != nil do
+        1 + index
       else
-        chomp_s()
+        nil
       end
     else
-      string
+      0
     end
   end
+
+  def count([], _element), do: 0
+
+  def count(list, element) do
+    [head | tail] = list
+
+    if head != element do
+      0 + count(tail, element)
+    else
+      1 + count(tail, element)
+    end
+  end
+
+  def count_string(string, char) do
+    list = String.graphemes(string)
+
+    count(list, char)
+  end
+
+  def contains(list, element), do: count(list, element) > 0
+
+  def contains_string(string, char), do: contains(String.graphemes(string), char)
 end
